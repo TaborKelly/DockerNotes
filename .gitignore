@@ -1,0 +1,3 @@
+# These get copied in with build_image.sh
+.bashrc
+.ssh

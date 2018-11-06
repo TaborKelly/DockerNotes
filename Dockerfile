@@ -6,7 +6,7 @@ ARG USER_NAME
 # Install curl
 # Create a normal user that matches your $USER_NAME with no password and
 # complete sudo privileges
-RUN apt-get update && apt-get install -y cmake curl sudo wget && \
+RUN apt-get update && apt-get install -y curl sudo && \
     addgroup --gid 1000 $USER_NAME && \
     adduser --uid 1000 --ingroup $USER_NAME --home /home/$USER_NAME --shell /bin/sh --disabled-password --gecos "" $USER_NAME && \
     usermod -aG sudo $USER_NAME && \
