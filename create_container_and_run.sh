@@ -14,4 +14,4 @@ fi
 
 # Start a detached interactive process
 # ./create_container_and_run.sh debian_dev:latest debian_dev_container /work/rpe/docker_work
-docker run -dit -u $U:$G --mount type=bind,source=$3,target=/work --name $2 $1 bash
+docker run -dit --security-opt seccomp=unconfined -u $U:$G --mount type=bind,source=$3,target=/work --name $2 $1 bash
