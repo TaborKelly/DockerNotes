@@ -25,5 +25,6 @@ RUN USER=$USER_NAME && \
     mkdir -p /etc/fixuid && \
     printf "user: $USER\ngroup: $GROUP\n" > /etc/fixuid/config.yml
 
+ENV USER=$USER_NAME
 USER $USER_NAME:$USER_NAME
 ENTRYPOINT ["fixuid"]
