@@ -2,9 +2,9 @@
 A poorly named repository. Currently, an example of building a docker image/container for development or testing with your user setup to match the host system, largely via [BoxBoat fixuid](https://github.com/boxboat/fixuid).
 
 ## Creating a development image
-With `build_image.sh` we create our development image. For example, to create an image based off of Debian Stretch:
+With `build_image_fixuid.sh` we create our development image. For example, to create an image based off of Debian Stretch:
 ```
-$ ./build_image.sh debian:stretch debian_stretch_dev
+$ ./build_image_fixuid.sh debian:stretch debian_stretch_dev
 Sending build context to Docker daemon  112.6kB
 Step 1/9 : ARG IMAGE_NAME
 ...
@@ -33,4 +33,4 @@ CONTAINER ID        IMAGE                COMMAND             CREATED            
 At this point we can use `docker attach` to attach to our development container, eg `docker attach debian_stretch_dev_container`. The contents of the host directory which we specified (`/work/docker_work`) is now available as `/work` in the container, with correct file ownership between the host and the container. Any change to this container will be persistent, and if it needs to be restarted in the future that can be accomplished with `docker restart`.
 
 ## Closing thoughts
-To quote BoxBoat "**DO NOT USE IN PRODUCTION**." Also, `build_image.sh` copies in your `.bashrc` and `.ssh` into the image to be nice, but that means that **your private .ssh keys were copied**. This is great for development inside the container, but you wouldn't want the image or the container to leave your system. Also, we run the container with `--security-opt seccomp=unconfined` so that all of your debug tools will work.
+To quote BoxBoat "**DO NOT USE IN PRODUCTION**." Also, `build_image_fixuid.sh` copies in your `.bashrc` and `.ssh` into the image to be nice, but that means that **your private .ssh keys were copied**. This is great for development inside the container, but you wouldn't want the image or the container to leave your system. Also, we run the container with `--security-opt seccomp=unconfined` so that all of your debug tools will work.

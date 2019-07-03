@@ -1,0 +1,23 @@
+ARG IMAGE_NAME
+FROM ${IMAGE_NAME}
+
+ARG GID
+ARG UID
+ARG USER_NAME
+
+# Install curl
+# Create a normal user that matches your $USER_NAME with no password and
+# complete sudo privileges
+RUN apt-get update && apt-get install -y curl sudo && \
+    addgroup --gid $GID $USER_NAME && \
+    adduser --uid $UID --ingroup $USER_NAME --home /home/$USER_NAME --shell /bin/sh --disabled-password --gecos "" $USER_NAME && \
+    usermod -aG sudo $USER_NAME && \
+    echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Copy your .bashrc and .ssh directory, because we care.
+COPY --chown=1000:1000 ./.bashrc /home/$USER_NAME
+COPY --chown=1000:1000 ./.ssh /home/$USER_NAME/.ssh
+
+ENV USER=$USER_NAME
+USER $USER_NAME:$USER_NAME
+# ENTRYPOINT ["/bin/bash"]
