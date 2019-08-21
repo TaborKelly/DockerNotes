@@ -1,4 +1,24 @@
-# Running
+# Running systemd in Docker
+## Background
+The systemd developers and the Docker developers have different philosophies in life. With that said there are many advantages to running systemd in docker. You can find some further reading [here](https://developers.redhat.com/blog/2016/09/13/running-systemd-in-a-non-privileged-container/).
+
+## Bulding and running
+Included here are strips `build.sh` to build a systemd based Docker image and `run.sh` to run the resulting image. `run.sh` does not grant the container any extra permissions (eg, `--cap-add SYS_ADMIN`). Because of this systemd will complain about not being able to unmount some stuff on shutdown but otherwise works:
+```
+[FAILED] Failed unmounting /etc/hosts.
+[FAILED] Failed unmounting /etc/resolv.conf.
+[FAILED] Failed unmounting /tmp.
+[FAILED] Failed unmounting /etc/hostname.
+```
+
+Adding `--cap-add SYS_ADMIN` fixes the error but is not necessary. You probably want to think twice before doing this:
+* [CAP_SYS_ADMIN: the new root](https://lwn.net/Articles/486306/)
+* [capabilities(7)](https://linux.die.net/man/7/capabilities)
+
+## Attaching to a running container
+```
+docker exec -it running_systemd bash
+```
 
 # Licenses
 ## Solita
