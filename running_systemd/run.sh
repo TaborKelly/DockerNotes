@@ -7,6 +7,7 @@ docker run \
     --tmpfs /run \
     --tmpfs /run/lock \
     --tty \
+    --cap-add SYS_PTRACE \
     --volume /sys/fs/cgroup:/sys/fs/cgroup:ro \
     --name running_systemd \
     running_systemd

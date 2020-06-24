@@ -18,7 +18,7 @@ RUN apt-get update \
 RUN find /etc/systemd/system \
     /lib/systemd/system \
     -path '*.wants/*' \
-    -not -name '*journald*' \
+    -not -name '*journal*' \
     -not -name '*systemd-tmpfiles*' \
     -not -name '*systemd-user-sessions*' \
     -exec rm \{} \;
