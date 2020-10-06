@@ -15,8 +15,8 @@ RUN apt-get update && apt-get install -y curl sudo && \
     echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Copy your .bashrc and .ssh directory, because we care.
-COPY --chown=1000:1000 ./.bashrc /home/$USER_NAME
-COPY --chown=1000:1000 ./.ssh /home/$USER_NAME/.ssh
+COPY --chown=$UID:$GID ./.bashrc /home/$USER_NAME
+COPY --chown=$UID:$GID ./.ssh /home/$USER_NAME/.ssh
 
 ENV USER=$USER_NAME
 USER $USER_NAME:$USER_NAME
