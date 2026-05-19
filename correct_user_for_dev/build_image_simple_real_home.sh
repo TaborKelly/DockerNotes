@@ -10,11 +10,7 @@ if [ $# -ne 2 ]
     exit 1
 fi
 
-# First, copy some files where Docker can find them
-cp ~/.bashrc .
-cp -r ~/.ssh .
-
-docker build -t $2 -f Dockerfile.simple \
+docker build -t $2 -f Dockerfile.simple-real-home \
     --build-arg GID=`id -g` \
     --build-arg UID=`id -u` \
     --build-arg USER_NAME=`whoami` \
